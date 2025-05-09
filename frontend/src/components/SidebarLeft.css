@@ -1,0 +1,55 @@
+.list{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20%;
+}
+
+.list .user{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.list .user .avt img{
+    width: 150px;
+    border-radius: 50%;
+}
+
+.list .user a{
+    font-size: 35px;
+}
+
+.list .user a{
+    text-decoration: none;
+    color: #212529;
+}
+
+.list .list-option{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin: 2% 0 2% 18%;
+    padding: 10px 20px;
+    transition: 0.3s;
+}
+
+.list .list-option a{
+    text-decoration: none;
+    color: #212529;
+    font-size: 20px;
+}
+
+.list .list-option.active {
+
+    background-color: black;
+    border-radius: 18px;
+    padding: 10px 20px;
+    color: white;
+    transition: 0.5s;
+}
+
+.list .list-option.active a {
+    color: white;
+}

@@ -1,0 +1,26 @@
+.container1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container1 .content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+    width: 30%;
+    height: 45%;
+    background-color: #F3F3F3;
+}
+
+.container1 .content .box h1{
+    margin-bottom: 30px;
+}
+
+.container1 .content .box form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
