@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import Loading from '../components/Loading';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -13,9 +14,10 @@ function Login() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1/api/login", { email, password });
+      const response = await axios.post("http://127.0.0.1:8080/api/login", { email, password });
       localStorage.setItem("token", response.data.token); //Lưu token nhận được từ API vào localStorage (bộ nhớ trình duyệt). Token này sẽ dùng để xác thực các request sau này.
       localStorage.setItem("name", response.data.user.name);
+      localStorage.setItem("email", response.data.user.email);
       navigate("/home");
     } catch (error) {
       if (error.response) {
@@ -51,7 +53,7 @@ function Login() {
             </div>
         </div>
       </div>
-      {/* <LoadingOverlay show={isLoading} /> */}
+      <Loading show={isLoading} />
     </div>
     
   );

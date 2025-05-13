@@ -33,6 +33,11 @@
     margin: 2% 0 2% 18%;
     padding: 10px 20px;
     transition: 0.3s;
+    font-size: 25px;
+}
+
+.list .list-option:hover{
+    cursor: pointer;
 }
 
 .list .list-option a{
