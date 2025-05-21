@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import Loading from '../components/Loading';
 
+// Đảm bảo axios tự động gửi XSRF-TOKEN trong header
+axios.defaults.withCredentials = true;
+axios.defaults.xsrfCookieName = "XSRF-TOKEN"; // Tên cookie Laravel tạo
+axios.defaults.xsrfHeaderName = "X-XSRF-TOKEN"; // Header mà Laravel mong đợi
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +19,16 @@ function Login() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:8080/api/login", { email, password });
+      // Gọi để lấy CSRF cookie
+      await axios.get("http://127.0.0.1:8080/sanctum/csrf-cookie", {
+        withCredentials: true,
+      });
+
+      const response = await axios.post(
+        "http://127.0.0.1:8080/api/login", 
+        { email, password },
+        { withCredentials: true }
+      );
       localStorage.setItem("token", response.data.token); //Lưu token nhận được từ API vào localStorage (bộ nhớ trình duyệt). Token này sẽ dùng để xác thực các request sau này.
       localStorage.setItem("name", response.data.user.name);
       localStorage.setItem("email", response.data.user.email);

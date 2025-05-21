@@ -12,6 +12,11 @@
     margin-bottom: 20px;
 }
 
+.list a{
+    text-decoration: none;
+    color: #212529;
+}
+
 .list .user .avt img{
     width: 150px;
     border-radius: 50%;
@@ -40,8 +45,7 @@
     cursor: pointer;
 }
 
-.list .list-option a{
-    text-decoration: none;
+.list .list-option span{
     color: #212529;
     font-size: 20px;
 }
@@ -55,6 +59,7 @@
     transition: 0.5s;
 }
 
-.list .list-option.active a {
+.list .list-option.active span {
     color: white;
 }
+

@@ -1,21 +1,23 @@
 import "./SidebarLeft.css";
 import { useState } from "react";
 import axios from "axios";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, NavLink } from "react-router-dom";
 import { AiOutlineUser, AiFillPicture   } from "react-icons/ai";
 import { FaFacebookMessenger, FaUserFriends, FaSafari } from "react-icons/fa";
 import { IoSettingsSharp, IoLogOut  } from "react-icons/io5";
 import Loading from '../components/Loading';
 
 function SidebarLeft() {
-    const [active, setActive] = useState('News');
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const [isActive, setIsActive] = useState(false); //active logout
+
     const userName = localStorage.getItem("name");
     const userEmail = localStorage.getItem("email");
 
     const handleLogout = async (e) => {
         e.preventDefault();
+        setIsActive(true);
         setIsLoading(true);
         try {
             const token = localStorage.getItem('token');
@@ -26,6 +28,7 @@ function SidebarLeft() {
             });
 
             localStorage.removeItem('token');
+            localStorage.clear();
             navigate('/login');
         } catch (error) {
             if (error.response) {
@@ -53,24 +56,24 @@ function SidebarLeft() {
                     <a href="">{ userName }</a>
                     <label>{ userEmail }</label>
                 </div>
-                <div className={`list-option ${active === 'News' ? 'active' : ''}`} onClick={() => setActive('News')}>
-                    <FaSafari />&nbsp; <a href="/home">News</a>
-                </div>
-                <div className={`list-option ${active === 'Messages' ? 'active' : ''}`} onClick={() => setActive('Messages')}>
-                    <FaFacebookMessenger />&nbsp; <a>Messages</a>
-                </div>
-                <div className={`list-option ${active === 'Friends' ? 'active' : ''}`} onClick={() => setActive('Friends')}>
-                    <FaUserFriends />&nbsp; <a>Friends</a>
-                </div>
-                <div className={`list-option ${active === 'Media' ? 'active' : ''}`} onClick={() => setActive('Media')}>
-                    <AiFillPicture />&nbsp; <a>Media</a>
-                </div>
-                <div className={`list-option ${active === 'Setting' ? 'active' : ''}`} onClick={() => setActive('Setting')}>
-                    <IoSettingsSharp />&nbsp;<a>Setting</a>
-                </div>
-                <div className={`list-option ${active === 'Logout' ? 'active' : ''}`} onClick={(event) => {setActive('Logout'); handleLogout(event);}}>
-                    <IoLogOut /><a>Logout</a>
-                </div>
+                <NavLink to="/home" className={({ isActive }) => isActive ? "list-option active" : "list-option"} >
+                    <FaSafari />&nbsp; <span>News</span>
+                </NavLink>
+                <NavLink to="/messages" className={({ isActive }) => isActive ? "list-option active" : "list-option"} >
+                    <FaFacebookMessenger />&nbsp; <span>Messages</span>
+                </NavLink>
+                <NavLink to="/friends" className={({ isActive }) => isActive ? "list-option active" : "list-option"} >
+                    <FaUserFriends />&nbsp; <span>Friends</span>
+                </NavLink>
+                <NavLink to="/media" className={({ isActive }) => isActive ? "list-option active" : "list-option"} >
+                    <AiFillPicture />&nbsp; <span>Media</span>
+                </NavLink>
+                <NavLink to="/setting" className={({ isActive }) => isActive ? "list-option active" : "list-option"} >
+                    <IoSettingsSharp />&nbsp;<span>Setting</span>
+                </NavLink>
+                <NavLink to="/logout" className={({ isActive }) => `list-option ${isActive || isLoading ? "active" : "list-option"}`} onClick={(event) => {handleLogout(event);}}>
+                    <IoLogOut /><span>{isLoading ? "Logging out..." : "Logout"}</span>
+                </NavLink>
             </div>
             <Loading show={isLoading} />
       </div>

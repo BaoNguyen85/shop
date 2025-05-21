@@ -1,0 +1,20 @@
+.home-body .center .media{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.home-body .center .media{
+    margin: 30px 0 9px 0;
+}
+
+.home-body .center .media-content{
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    gap: 1.5% 5%;
+}
+
+.home-body .center .media-content .media-image img{
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+}
